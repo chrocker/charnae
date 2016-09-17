@@ -1,0 +1,32 @@
+<html>
+<head>
+	<title>IBM Fed Exercise</title>
+	<!--<script src="jquery-3.1.0.js"></script>-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<!--<script type="text/javascript" src="jQuery.ptFlickrGallery-0.2/src/jquery.flickrGallery-packed.js"></script>
+	<link rel="stylesheet" type="text/css" href="jQuery.ptFlickrGallery-0.2/src/flickrGallery.css" media="screen" />-->
+</head>
+<body>
+	<h2>Nasa's Images</h2>
+	<center><div id="someContainer" style="border-style:solid;border-color:#000;height:100%;width:auto;overflow:auto">
+	</div></center>
+	<script>
+	function getImgs(setId) {
+
+		var URL = "https://api.flickr.com/services/rest/?method=flickr.people.getPublicPhotos&api_key=a5e95177da353f58113fd60296e1d250&photoset_id=setId&user_id=24662369@N07&format=json&jsoncallback=?"
+		$.getJSON(URL, function(data){
+    		$.each(data.photos.photo, function(i, item){
+      		// Creating the image URL. Info: http://www.flickr.com/services/api/misc.urls.html
+      			var img_src = "http://farm" + item.farm + ".static.flickr.com/" + item.server + "/" + item.id + "_" + item.secret + "_m.jpg";
+      			var img_thumb = $("<img/>").attr("src", img_src).css("margin", "8px")
+      			$(img_thumb).appendTo("#someContainer");
+    		});
+  		});
+
+	}
+	$(document).ready(function() {
+  		getImgs(); // Call the function!
+	});
+	</script>
+</body>
+</html>
